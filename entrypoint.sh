@@ -2,6 +2,8 @@
 
 # Enable verbose mode to show all commands being executed
 set -x
+set -ex
+set -e
 
 chown -R www-data:www-data /var/www/storage
 
