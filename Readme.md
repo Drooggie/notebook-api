@@ -14,9 +14,9 @@ cd notebook-api
 ```
 docker compose up -d --build && docker compose logs -f app
 ```  
-<br />
-
 Теперь сайт доступен по такому адресу <a href="http://localhost:8888/">localhost:8888</a>
+<br />
+<br />
 
 ### Документация
 
@@ -24,6 +24,8 @@ docker compose up -d --build && docker compose logs -f app
 
 Импорт файл Postman-a в корневой директории с названием `Notebook.postman_collection.json`
 А Swagger доступен по адресу <a href="http://localhost:8888/api/documentation/">localhost:8888/api/documentation</a>
+<br />
+<br />
 
 #### Важное замечание
 Для того чтобы попробовать весь функционал продукта надо будет зарегистрировать пользователя, в Postman-е уже есть готовые реквесты с заранее подготовленным grant токеном.
