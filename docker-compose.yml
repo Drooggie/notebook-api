@@ -3,47 +3,47 @@ version: '3.8'
 services:
   mysql:
     image: mysql:8.0
-    container_name: forum_api-db
+    container_name: notebook_api-db
     ports:
       - 3333:3306
     environment:
       MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: forum_api
+      MYSQL_DATABASE: notebook_api
       MYSQL_PASSWORD: secret
     volumes:
       - mysql-data:/var/lib/mysql
     networks:
-      - forum_api_network
+      - notebook_api_network
 
   app:
     build:
       dockerfile: Dockerfile
-    container_name: forum_api_app
+    container_name: notebook_api_app
     environment:
       DB_CONNECTION: mysql
       DB_HOST: mysql
       DB_PORT: 3306
-      DB_DATABASE: forum_api
+      DB_DATABASE: notebook_api
       DB_USERNAME: root
       DB_PASSWORD: secret
     working_dir: /var/www
     volumes:
       - ./src:/var/www
     networks:
-      - forum_api_network
+      - notebook_api_network
     depends_on:
       - mysql
 
   nginx:
     image: nginx:alpine
-    container_name: forum_api_nginx
+    container_name: notebook_api_nginx
     volumes:
       - ./src:/var/www
       - ./nginx:/etc/nginx/conf.d
     ports:
       - "8888:80"
     networks:
-      - forum_api_network
+      - notebook_api_network
     depends_on:
       - app
 
@@ -52,4 +52,4 @@ volumes:
 
 
 networks:
-  forum_api_network:
+  notebook_api_network:
