@@ -1,0 +1,391 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "notebook-api",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/v1/notebook/": {
+            "get": {
+                "tags": [
+                    "Note"
+                ],
+                "summary": "Index method of Note Controller",
+                "operationId": "28d645212eb34414fde0b3cd5cfbf932",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Note"
+                                            }
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "first_page_url": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8888/api/v1/notebook?page=1"
+                                                },
+                                                "from": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page_url": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8888/api/v1/notebook?page=1"
+                                                },
+                                                "links": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "url": {
+                                                                "type": "string",
+                                                                "nullable": true
+                                                            },
+                                                            "label": {
+                                                                "type": "string",
+                                                                "example": "&laquo; Previous"
+                                                            },
+                                                            "active": {
+                                                                "type": "boolean",
+                                                                "example": false
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "next_page_url": {
+                                                    "type": "string",
+                                                    "nullable": true
+                                                },
+                                                "path": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8888/api/v1/notebook"
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "prev_page_url": {
+                                                    "type": "string",
+                                                    "nullable": true
+                                                },
+                                                "to": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Note"
+                ],
+                "summary": "Post method of Note Controller",
+                "operationId": "e25f08130c85fbed336c1989d264e9d3",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NoteRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You successfully created Note"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Note"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Error: Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/notebook/{id}": {
+            "get": {
+                "tags": [
+                    "Note"
+                ],
+                "summary": "Show method of Note Controller",
+                "operationId": "23d8f3dd4e627c709e1cb8bb3d9278e3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Note"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Note"
+                ],
+                "summary": "Destroy method of Note Controller",
+                "operationId": "3b66122697e071a6f6620df930c07d8a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Note"
+                ],
+                "summary": "Update method of Note Controller",
+                "operationId": "6f1b15d031e0aaee3cc5848ded9eb1e8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "$ref": "#/components/schemas/NoteRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Note info updated"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Note"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Note": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "example": 2
+                    },
+                    "full_name": {
+                        "type": "string",
+                        "example": "Jhon Doe"
+                    },
+                    "company": {
+                        "type": "string",
+                        "example": "My Company"
+                    },
+                    "phone_number": {
+                        "type": "string",
+                        "example": "+77777777777"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "jhonDoe@email.com"
+                    },
+                    "birth_date": {
+                        "type": "string",
+                        "format": "date",
+                        "nullable": true
+                    },
+                    "photo_url": {
+                        "type": "string",
+                        "example": "https://static.thenounproject.com/png/4154905-200.png"
+                    }
+                },
+                "type": "object"
+            },
+            "NoteRequest": {
+                "properties": {
+                    "full_name": {
+                        "type": "string",
+                        "example": "Jhon Doe"
+                    },
+                    "company": {
+                        "type": "string",
+                        "example": "My Company"
+                    },
+                    "phone_number": {
+                        "type": "string",
+                        "example": "+77777777777"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "jhonDoeUpdated@email.com"
+                    },
+                    "birth_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2005-12-04 02:45:57"
+                    },
+                    "photo_url": {
+                        "type": "string",
+                        "format": "uri",
+                        "example": "https://static.thenounproject.com/png/4154905-200.png"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "Authorization",
+                "description": "Bearer token authentication. Example: Bearer <your_token>"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Note",
+            "description": "Note"
+        }
+    ],
+    "security": [
+        [
+            {
+                "BearerAuth": []
+            }
+        ]
+    ]
+}
