@@ -17,6 +17,7 @@ if [ ! -f ".env" ]; then
 fi
 
 php artisan key:generate
+php artisan passport:key
 
 if [ ! -f /var/www/storage/.migrations_done ]; then
     echo "Running migrations..."
