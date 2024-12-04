@@ -12,7 +12,7 @@ cd notebook-api
 
 Запуститет эту команду для запуска Docker контейнеров.
 ```
-docker-compose up -d --build && docker-compose logs -f app
+docker compose up -d --build && docker compose logs -f app
 ```  
 <br />
 
@@ -28,10 +28,26 @@ docker-compose up -d --build && docker-compose logs -f app
 #### Важное замечание
 Для того чтобы попробовать весь функционал продукта надо будет зарегистрировать пользователя, в Postman-е уже есть готовые реквесты с заранее подготовленным grant токеном.
 
-Если хотите опробовать без регистрации то уже есть заранее зарегистрированный пользователь. Для того чтобы им воспользоваться в Header добавьте `Authorization` со следующим значением:
+Чтобы воспользоваться им сделайте запросы для регистрации через импорт файл Postman-a, либо отправьте post запрос на `localhost:8888/oauth/token` с таким телом:
 ```
-Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMzNhY2U3OTc0NWM0NmJhNDg5Yzg3YjY5YmVhNWM2N2RmMTQxN2U2ZGIzMjQyN2YyNTUxOWY0OWNjZmE1MmNlODI4MjQxYTgxMTEwOTFhZmIiLCJpYXQiOjE3MzMyNzU0MjYuNjYwMTcyLCJuYmYiOjE3MzMyNzU0MjYuNjYwMTc2LCJleHAiOjE3NjQ4MTE0MjYuNjMxNDMsInN1YiI6IjIiLCJzY29wZXMiOlsiKiJdfQ.L8LiwPLdJBOd9onEcX5ErD-EyrwCEVz4187-9ro8j1WlrJzixywhqS450v6QbqQ6Mv0uE74f4koR_TQ1MwA21KTUx_62SQNbEnEchpQKrA7ERB0KLBIebw6FB5IwVyIMu0aD9QuTQ7WwUWjlLRzb2M3gxGbufYgdaDrd_QwNUMCLW3Ph-KoVBw0-wtb0qG7v3u--ZgO4ogAsV2IZhJeTD2SxJBgzbbFS1GySHVyo1mhjw-dOrc0oYNYfgaVa2XaTbqdfabwyI6fK4EEh9QnRezVx7Qahg-w4Lx4irg0lx_DcwLUkCWZieQPV4UnOKrVCvJpu4yXyOQcwnz6vSnVfepdhoNdzlx6GXiE4FvTr-SqHKGoWE9t8Sfd9TrxTcaPf5CU-JYI6v3dNVzCO_MtR8pY2K1-X5QO_PhuWw30uduxmIU_mljzeq43n0a8IO7HDrIIq9eh0y7hkcIvKu2P_GVUgm6j1FGMgPjTQ-GRt-kyeHaKi2vbTyaDZYEmEv5aAgSQd9xihetUNqhXrb4p8EbPwCOZ6XRaVkT3pAm0NbPPJyHeVAWr5rOdT_oNDx1KLp72kF1mDvracG_PS8pNUyS8YCfLQAGbCy-vTh_wQcRNpqHKa9HSFQMs105OMdZ-ECW1_TIYOLu905DrMZgIOQnvuTK93MOzMUj_bNe1gXB0
+{
+    "grant_type": "password",
+    "client_id": "1",
+    "client_secret": "rUJrG0RsI10VlRYVVgPZiqMYGADLF11Pm5TCdHJu",
+    "username": "jhonDoe@email.com",
+    "password": "somepassword",
+    "scope": "*"
+}
 ```
-<br />
+
+Затем ко всем запросом напишите `Authorization` header со значением взятого из ответа к запрошу выше. Обычно он выглядит так:
+```
+"access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZjdmNWU5ZjRhYzYxNzE0ZTlhNjk3ZTc2YWIwMDYzYzJmNzc2NjE3OWZlNGVlMmJmMjU4MGJlNzVmYjQwZmU3MDNkZjhkYTRiYTZjZmUwNDAiLCJpYXQiOjE3MzMzMzMxNTMuMzk4ODE5LCJuYmYiOjE3MzMzMzMxNTMuMzk4ODIxLCJleHAiOjE3NjQ4NjkxNTMuMzcxODcsInN1YiI6IjIiLCJzY29wZXMiOlsiKiJdfQ.RHaiYhDdusXWUB4vYyqHNQ_DWxMA7tCxh_nUspmEqPdZIzPTgP-O7OwwDG8ticwJ7LRyZeEbFtd6q85VnfhPGyjcNjaAUidCxE6KsUYYyVyw_0zwyLJdzefzb9vVAx9Bq0KB8HbZ35g-Pp9WjXa97OP1YgSug76j-niGzZWvLDpcRSctTldekG68W2QXlco8ngO795XjaLHetwfXUqCcy9XXI8sA1KtyGpPKd7vOK1uwg_KlcnbIUj-KtkJx5JvLOHQmnSWq94garcEOLU2oAoST-Xb-4ZUMrxdLl4QKceKT3tANtZZItUMcRRCw7hQSXRKdwEWY6rvnRfXjzILS9TCoRcKAGx5NUS2Dj0_gE71C8ajiV-7SxB-yLTU8EvGH1Z1rf8PEMK5B2ODcz9-KcYc6ApfXYi-GJ4LBsDvJHlgFmFLGMbV9ikBCWR8Czqjn2qr7JGQaQ5xq9naMLxPKpBPJBQPRekOsOUY6yKaeAxOohEBKeK2mjPS_M0-tvicrhz0HgJ1JZZK_AucSDuGXg7YTaeLO016inVc1PCV-SHKzrnyXIZaC3iFxNM6-OVJfmYjPc4qB89Jo_4AWbGfk_-pb2LsjStx2c2Fnu5Fqju9V5C1iToj6ret_w8sIIMyAjHGfd4KvCgXNTvIDItKsbuYUg80FHCh8gRfeTTSNadw",
+```
+
+Итоговое значение `Authorization` header-a должно быть таким:
+```
+Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZjdmNWU5ZjRhYzYxNzE0ZTlhNjk3ZTc2YWIwMDYzYzJmNzc2NjE3OWZlNGVlMmJmMjU4MGJlNzVmYjQwZmU3MDNkZjhkYTRiYTZjZmUwNDAiLCJpYXQiOjE3MzMzMzMxNTMuMzk4ODE5LCJuYmYiOjE3MzMzMzMxNTMuMzk4ODIxLCJleHAiOjE3NjQ4NjkxNTMuMzcxODcsInN1YiI6IjIiLCJzY29wZXMiOlsiKiJdfQ.RHaiYhDdusXWUB4vYyqHNQ_DWxMA7tCxh_nUspmEqPdZIzPTgP-O7OwwDG8ticwJ7LRyZeEbFtd6q85VnfhPGyjcNjaAUidCxE6KsUYYyVyw_0zwyLJdzefzb9vVAx9Bq0KB8HbZ35g-Pp9WjXa97OP1YgSug76j-niGzZWvLDpcRSctTldekG68W2QXlco8ngO795XjaLHetwfXUqCcy9XXI8sA1KtyGpPKd7vOK1uwg_KlcnbIUj-KtkJx5JvLOHQmnSWq94garcEOLU2oAoST-Xb-4ZUMrxdLl4QKceKT3tANtZZItUMcRRCw7hQSXRKdwEWY6rvnRfXjzILS9TCoRcKAGx5NUS2Dj0_gE71C8ajiV-7SxB-yLTU8EvGH1Z1rf8PEMK5B2ODcz9-KcYc6ApfXYi-GJ4LBsDvJHlgFmFLGMbV9ikBCWR8Czqjn2qr7JGQaQ5xq9naMLxPKpBPJBQPRekOsOUY6yKaeAxOohEBKeK2mjPS_M0-tvicrhz0HgJ1JZZK_AucSDuGXg7YTaeLO016inVc1PCV-SHKzrnyXIZaC3iFxNM6-OVJfmYjPc4qB89Jo_4AWbGfk_-pb2LsjStx2c2Fnu5Fqju9V5C1iToj6ret_w8sIIMyAjHGfd4KvCgXNTvIDItKsbuYUg80FHCh8gRfeTTSNadw
+```
 
 Во Swager-е тоже надо будеть ввести пользователя, для того чтобы сделать это нажмите на кнопку `Authorize` в правом верхнем углу и в инпут добавьте выше указанное значение. 
